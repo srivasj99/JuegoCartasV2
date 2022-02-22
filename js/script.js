@@ -528,6 +528,7 @@ function dificultad(d) {
             })
             break;
         case "normal":
+            $("#ayuda").css("display", "none")
             $(cartas).each(function () {
                 if ($(this).data("name") == "bomba") {
                     setTimeout(() => {
@@ -550,9 +551,10 @@ function dificultad(d) {
             })
             break;
         case "dificil":
-
+            $("#ayuda").css("display", "none")
             break;
         case "leyenda":
+            $("#ayuda").css("display", "none")
             $(cartas).each(function () {
                 if ($(this).data("name") == "bomba") {
                     setTimeout(() => {
