@@ -517,7 +517,7 @@ function dificultad(d) {
                                 contadorClickAyuda = 1;
                                 $(this).children().first().empty();
                                 $(this).css("border", "none");
-                                $(this).css("background-image", "url(../img/cara-trasera2.jpg)")
+                                $(this).css("background-image", "url(img/cara-trasera2.jpg)")
                                 $(this).on("click", mostrarImagenes);
                             }, 2000);
                         }
@@ -544,7 +544,7 @@ function dificultad(d) {
                     setTimeout(() => {
                         $(this).children().first().empty();
                         $(this).css("border", "none");
-                        $(this).css("background-image", "url(../img/cara-trasera2.jpg)")
+                        $(this).css("background-image", "url(img/cara-trasera2.jpg)")
                         $(this).on("click", mostrarImagenes);
                     }, 3000);
                 }
@@ -570,7 +570,7 @@ function dificultad(d) {
                     setTimeout(() => {
                         $(this).children().first().empty();
                         $(this).css("border", "none");
-                        $(this).css("background-image", "url(../img/cara-trasera2.jpg)")
+                        $(this).css("background-image", "url(img/cara-trasera2.jpg)")
                         $(this).on("click", mostrarImagenes);
                     }, 2000);
                 }
