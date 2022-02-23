@@ -21,6 +21,11 @@ let ranking = [
     { "nombre": "Jugador 4", "errores": 60 },
     { "nombre": "Jugador 5", "errores": 80 }
 ];
+
+let rankingMasFallos = [
+    { "nombre": "Jugador 1", "errores": 90 },
+    { "nombre": "Jugador 2", "errores": 110 }
+];
 window.onload = init();
 //creamos el array de cartas
 
@@ -36,6 +41,7 @@ function init() {
     $("#empezarJuego").on("click", function () {
         iniciarJuego();
         rankingJugadores();
+        rankingJugadoresMasFallos();
         $("#btnCerrarModal").trigger("click", () => {
             $(".modal").hide();
         })
@@ -117,8 +123,11 @@ function mostrarImagenes(evt) {
 
         if (contadorClicks == 2) {
             contadorClicks = 0;
+            $("#div-ayuda").css("display", "block")
             setTimeout(() => {
+                
                 deseleccionar(cartasSeleccionadas);
+                $("#div-ayuda").css("display", "none")
             }, 500);
 
 
@@ -180,7 +189,7 @@ function deseleccionar(cartas) {
         });
 
     } else {
-
+        
         cartas.forEach(element => {
             $(element).children().first().empty()
             $(element).on("click", mostrarImagenes);
@@ -189,7 +198,6 @@ function deseleccionar(cartas) {
             $(element).css("background-color", "")
             $(element).css("border", "")
             $(element).effect("shake", "fast")
-
         });
         erroresModoLeyenda(dificultades)
     };
@@ -273,6 +281,7 @@ function checkTotal(cp) {
     if (contParsed == 7) {
         //guardarPuntuacionFinal(this.usuario, errores.textContent);
         rankingJugadores();
+        rankingJugadoresMasFallos();
         alert(`${win}, ${errores.html()} ${errors}`)
         window.location.reload();
     }
@@ -522,6 +531,8 @@ function dificultad(d) {
                             }, 2000);
                         }
                     })
+                    cartasSeleccionadas = [];
+                    contadorClicks = 0;
                 } else {
                     alert("Ya has usado la ayuda");
                 }
@@ -549,6 +560,8 @@ function dificultad(d) {
                     }, 3000);
                 }
             })
+            cartasSeleccionadas = [];
+            contadorClicks = 0;
             break;
         case "dificil":
             $("#ayuda").css("display", "none")
@@ -575,6 +588,8 @@ function dificultad(d) {
                     }, 2000);
                 }
             })
+            cartasSeleccionadas = [];
+            contadorClicks = 0;
             break;
     }
 }
@@ -601,6 +616,32 @@ function rankingJugadores() {
     ranking.forEach(element => {
         $('#topNombre' + i).html(element.nombre);
         $('#topErrores' + i).html(element.errores);
+        i++;
+    });
+}
+
+
+function rankingJugadoresMasFallos() {
+    let i = 1;
+    let actualizar = false;
+    if (localStorage.getItem('rankingMasFallos') == null) {
+        localStorage.setItem('rankingMasFallos', JSON.stringify(rankingMasFallos));
+    } else {
+        rankingMasFallos = JSON.parse(localStorage.getItem("rankingMasFallos"));
+        if (contParsed == 7) {
+            rankingMasFallos.forEach(element => {
+                if (errorParsed >= element.errores && actualizar == false) {
+                    element.nombre = usuario
+                    element.errores = errorParsed;
+                    actualizar = true;
+                }
+            });
+        }
+        localStorage.setItem('rankingMasFallos', JSON.stringify(rankingMasFallos));
+    }
+    rankingMasFallos.forEach(element => {
+        $('#topNombreMasFallos' + i).html(element.nombre);
+        $('#topErroresMasFallos' + i).html(element.errores);
         i++;
     });
 }
